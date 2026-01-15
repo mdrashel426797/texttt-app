@@ -47,10 +47,10 @@ class RegistrationController extends GetxController {
       if (response.statusCode == 201) {
         final data = jsonDecode(response.body);
         print("Sign UP Response: $data");
-
+         Get.offAllNamed(AppRoute.verification);
         Get.snackbar("Success", "Registration Successful");
-        Get.offAllNamed(AppRoute.verification);
-      } else {
+      }
+      else {
         print("Sign UP Error Body: ${response.body}");
         Get.snackbar("Registration Failed", "Something went wrong");
       }

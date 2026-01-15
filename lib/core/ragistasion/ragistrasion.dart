@@ -166,7 +166,7 @@ class Ragistrasion extends StatelessWidget {
 
                 GestureDetector(
                   onTap: (){
-                    Get.toNamed(AppRoute.verification);
+                    registrationController.registration();
                   },
                   child: CustombuttonTwo(
                     width: double.maxFinite,

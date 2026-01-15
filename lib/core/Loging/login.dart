@@ -1,17 +1,15 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_app/core/route/route.dart';
 import 'package:test_app/core/widgets/customtextfromfield.dart';
 import '../widgets/custombutton_two.dart';
-import 'loning_controller.dart' show LoningController;
+import 'loning_controller.dart';
+
 
 class Login extends StatelessWidget {
   Login({super.key});
 
-  final LoningController controller = Get.put(LoningController());
-
+  final LoginController controller = Get.put(LoginController());
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -24,7 +22,7 @@ class Login extends StatelessWidget {
             child: Container(
               height: double.maxFinite,
               width: double.maxFinite,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/image/logingimge.png"),
                   fit: BoxFit.fill,
@@ -40,13 +38,9 @@ class Login extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
-
-
-
                     Padding(
                       padding: const EdgeInsets.only(top: 283.5),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           "Login",
                           style: TextStyle(
@@ -57,15 +51,8 @@ class Login extends StatelessWidget {
                         ),
                       ),
                     ),
-
-
-
-
-
-                    SizedBox(height: 30),
-
-
-                    Text(
+                    const SizedBox(height: 30),
+                    const Text(
                       "Email",
                       style: TextStyle(
                         fontSize: 14,
@@ -73,32 +60,24 @@ class Login extends StatelessWidget {
                         color: Color(0xFF000000),
                       ),
                     ),
-
-
-
-                    SizedBox(height: 15),
-
-
+                    const SizedBox(height: 15),
                     CustomTextField(
                       controller: controller.emailController,
                       hintText: 'Email',
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: Color(0xFF565555),
                       ),
-                      validator: (Value) {
-                        if (Value == null || Value.isEmpty) {
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return "Type Your Email";
                         }
+                        return null;
                       },
                     ),
-
-
-
-                    SizedBox(height: 30),
-
-                    Text(
+                    const SizedBox(height: 30),
+                    const Text(
                       "Password",
                       style: TextStyle(
                         fontSize: 14,
@@ -106,30 +85,26 @@ class Login extends StatelessWidget {
                         color: Color(0xFF000000),
                       ),
                     ),
-
-
-                    SizedBox(height: 15),
-
-
+                    const SizedBox(height: 15),
                     CustomTextField(
                       controller: controller.passwordController,
                       obscureText: true,
-                      validator: (Value) {
-                        if (Value == null || Value.isEmpty) {
+                      hintText: 'Password',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return "Type Your Password";
                         }
-                      }, hintText: '',
+                        return null;
+                      },
                     ),
-
-
-                    SizedBox(height: 14),
+                    const SizedBox(height: 14),
                     Align(
                       alignment: Alignment.topRight,
                       child: GestureDetector(
                         onTap: () {
-                          Get.toNamed(AppRoute.faidScreen);
+                    Get.toNamed(AppRoute.faidScreen);
                         },
-                        child: Text(
+                        child: const Text(
                           "Forgot Password ?",
                           style: TextStyle(
                             fontSize: 14,
@@ -138,49 +113,33 @@ class Login extends StatelessWidget {
                         ),
                       ),
                     ),
-
-
-
-                    SizedBox(height: 36),
-
-
+                    const SizedBox(height: 36),
                     GestureDetector(
-
                       onTap: () {
-
                         if (formKey.currentState!.validate()) {
-                          // Future.delayed(Duration(seconds: 3), () {
-                          //   if (Get.isDialogOpen!) {
-                          //     Get.toNamed(AppRoute.homepage);
-                          //   }
-                          // });
-                          controller.logIngController();
+                          controller.loginUser();
                         }
                       },
                       child: CustombuttonTwo(
                         width: double.maxFinite,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(30),
                           bottomRight: Radius.circular(20),
                         ),
                         text: "Login",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: Color(0xFFFFFFFF),
                         ),
                       ),
                     ),
-
-
-
-
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.only(left: 36),
                       child: Row(
                         children: [
-                          Text(
+                          const Text(
                             "Don’t have an account yet?",
                             style: TextStyle(
                               fontSize: 17,
@@ -188,12 +147,12 @@ class Login extends StatelessWidget {
                               color: Color(0xFF1C1C1E),
                             ),
                           ),
-                          SizedBox(width: 3),
+                          const SizedBox(width: 3),
                           GestureDetector(
                             onTap: () {
                               Get.toNamed(AppRoute.ragistrasion);
                             },
-                            child: Text(
+                            child: const Text(
                               "Ragistrasion",
                               style: TextStyle(
                                 fontSize: 17,

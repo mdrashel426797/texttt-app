@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart' show ExtensionDialog, GetNavigation;
-import 'package:pinput/pinput.dart' show Pinput, PinTheme;
+import 'package:get/get.dart';
+import 'package:pinput/pinput.dart' show Pinput;
 import 'package:test_app/core/forgetpassword/verification_controller.dart';
 import 'package:test_app/core/widgets/custombutton_two.dart';
+import '../route/route.dart';
+import '../widgets/custombutton.dart';
 
 class Verification extends StatelessWidget {
-
   final VerificationController varFiCaTionController = Get.put(VerificationController());
 
-   Verification({super.key});
+  Verification({super.key});
 
   @override
   Widget build(BuildContext context) {
-    String otpCode;
-
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Container(
             height: double.maxFinite,
             width: double.maxFinite,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/image/varificationpic.png"),
+                image: AssetImage("assets/image/varification.png"),
                 fit: BoxFit.fill,
               ),
             ),
@@ -36,7 +34,7 @@ class Verification extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
+                const Center(
                   child: Text(
                     "Email Verification ",
                     style: TextStyle(
@@ -46,8 +44,8 @@ class Verification extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 50,),
-                Center(
+                const SizedBox(height: 50),
+                const Center(
                   child: Text(
                     "Code has been send to im******@gmail.com",
                     style: TextStyle(
@@ -57,41 +55,37 @@ class Verification extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 14,),
-
+                const SizedBox(height: 14),
 
                 Center(
                   child: Pinput(
-                   controller: varFiCaTionController.otpController ,
+                    controller: varFiCaTionController.otpController,
                     length: 4,
-                    onChanged: (value) => otpCode = value,
                     onCompleted: (value) => print("OTP Completed: $value"),
-
                   ),
                 ),
 
+                const SizedBox(height: 129),
 
-
-
-
-                SizedBox(height: 129,),
-
-                ///custom button
-                CustombuttonTwo(
-                  width: double.maxFinite,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    bottomRight: Radius.circular(20),
-                  ),
-                  text: "Verification",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFFFFFFFF),
+                /// Custom Button with Validation & Loader
+                GestureDetector(
+                  onTap: () {
+                    varFiCaTionController.verifyEmail();
+                    },
+                  child: CustombuttonTwo(
+                    width: double.maxFinite,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(20),
+                    ),
+                    text: "Verification",
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFFFFFFFF),
+                    ),
                   ),
                 ),
-
-
               ],
             ),
           ),
@@ -100,3 +94,17 @@ class Verification extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

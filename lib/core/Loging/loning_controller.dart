@@ -2,60 +2,46 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:test_app/core/route/route.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:test_app/core/ragistasion/Homepage.dart';
 
-class LoningController extends GetxController {
+class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  Future<void> loginUser() async {
+    try {
 
+      String? fcmToken = await FirebaseMessaging.instance.getToken();
+      print("FCM Token: $fcmToken");
 
-
-
-
-
-  /*
- Base Url: http://10.0.20.117:5021/api/v1/auth/otp/login
-body Data: {
-    "email": "pakistan@gmail.com",
-    "password": "123456",
-    "fcmToken":"sdafs"
-
-}
- */
-
-
-
-
-  Future<void> logIngController() async {
-
-    try{
-
-      final respons = await http.post(Uri.parse("http://10.0.20.117:5021/api/v1/auth/otp/login"),
-        headers: {
-          "Content-Type": "application/json",
-        },
-          body : jsonEncode({
+      final response = await http.post(
+        Uri.parse("http://10.0.20.117:5021/api/v1/auth/otp/login"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
           "email": emailController.text.trim(),
           "password": passwordController.text.trim(),
-          "isAgreeWithTerms": true,
-          }),
-    );
+          "fcmToken": fcmToken ?? "no_token"
+        }),
+      );
 
-      if(respons.statusCode==201){
-       // Get.toNamed(AppRoute.homepage);
-        print(respons.body);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print("Login Success: ${response.body}");
+        Get.to(Homepage());
+      } else {
+        Get.snackbar("Login Failed", "Invalid email or password",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white);
+      }
+    } catch (e) {
+      print("Error occurred: $e");
+      Get.snackbar("Error", "Something went wrong. Please try again.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.orange,
+          colorText: Colors.white);
     }
-    else {
-      Get.snackbar("plz type your email", "Something went wrong");
-    }
-
-    }catch(e){
-      print(e);
-      Get.snackbar("error", "Something went wrong");
-    }
-   }
+  }
 
   @override
   void onClose() {
@@ -64,3 +50,5 @@ body Data: {
     super.onClose();
   }
 }
+
+

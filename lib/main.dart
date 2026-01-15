@@ -6,27 +6,14 @@ import 'package:get/get.dart';
 import 'package:test_app/firebase_options.dart';
 import 'core/route/route.dart';
 import 'core/splash_screen/splash_screen.dart';
+
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 }
 
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//
-//   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-//
-//   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-//
-//
-//   runApp(const MyApp());
-// }
-
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
 
   try {
     if (Firebase.apps.isEmpty) {
@@ -34,11 +21,20 @@ void main() async {
         options: DefaultFirebaseOptions.currentPlatform,
       );
     }
+
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    await messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   } catch (e) {
-    print("Firebase already initialized");
+    print("Firebase initialization error: $e");
   }
 
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(const MyApp());
 }
 
@@ -47,23 +43,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return ScreenUtilInit(
-     designSize: Size(360, 690),
-      builder: (_,child){
-       return  GetMaterialApp(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_, child) {
+        return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          home: SplashScreen(),
+          home: const SplashScreen(),
           defaultTransition: Transition.fadeIn,
           transitionDuration: const Duration(milliseconds: 500),
           getPages: AppRoute.route,
         );
       },
-
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

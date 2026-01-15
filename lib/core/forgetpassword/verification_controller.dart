@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:test_app/core/route/route.dart';
+import 'package:test_app/core/ragistasion/Homepage.dart';
 
 class VerificationController extends GetxController {
 
@@ -10,8 +11,7 @@ class VerificationController extends GetxController {
 
   Future<void> verifyEmail() async {
     try {
-      final response = await http.post(
-        Uri.parse("http://10.0.20.117:5021/api/v1/auth/otp/verify-email"),
+      final response = await http.post(Uri.parse("http://10.0.20.117:5021/api/v1/auth/otp/resend-otp"),
         headers: {
           "Content-Type": "application/json",
         },
@@ -24,7 +24,8 @@ class VerificationController extends GetxController {
       print("Response Body: ${response.body}");
 
       if (response.statusCode == 200) {
-        Get.toNamed(AppRoute.verification);
+        log("respos${response.body}");
+        Get.to(Homepage());
       } else {
         final Map<String, dynamic> errorData = jsonDecode(response.body);
         Get.snackbar(
