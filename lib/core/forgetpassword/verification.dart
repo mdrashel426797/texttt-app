@@ -3,13 +3,14 @@ import 'package:get/get.dart';
 import 'package:pinput/pinput.dart' show Pinput;
 import 'package:test_app/core/forgetpassword/verification_controller.dart';
 import 'package:test_app/core/widgets/custombutton_two.dart';
-import '../route/route.dart';
-import '../widgets/custombutton.dart';
-
 class Verification extends StatelessWidget {
+  final String? email;
   final VerificationController varFiCaTionController = Get.put(VerificationController());
 
-  Verification({super.key});
+  Verification({super.key,
+    this.email = "",
+
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +45,11 @@ class Verification extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 50),
-                const Center(
+                 SizedBox(height: 50),
+                 Center(
                   child: Text(
-                    "Code has been send to im******@gmail.com",
+                    email ?? " code base hare  ",
+                    // " rashelcox426797@gmail.com",
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
@@ -70,7 +72,7 @@ class Verification extends StatelessWidget {
                 /// Custom Button with Validation & Loader
                 GestureDetector(
                   onTap: () {
-                    varFiCaTionController.verifyEmail();
+                    varFiCaTionController.verifyEmail(email??"");
                     },
                   child: CustombuttonTwo(
                     width: double.maxFinite,

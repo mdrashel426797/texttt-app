@@ -24,7 +24,7 @@ class AppRoute{
   static const String ragistrasion = "/ragistrasion";
   static const String savecontinue = "/savecontinue";
   static const String faidScreen = "/faidScreen";
-  static const String verification = "/verification";
+  // static const String verification = "/verification";
   static const String allowLocation = "/allowLocation";
   static const String homepage = "/homepage";
   static const String grups = "/grups";
@@ -42,7 +42,7 @@ class AppRoute{
     GetPage(name: ragistrasion, page: () => Ragistrasion()),
     GetPage(name: savecontinue, page: () => Savecontinue()),
     GetPage(name: faidScreen, page: () => FaidScreen()),
-    GetPage(name: verification, page: () => Verification()),
+    // GetPage(name: verification, page: () => Verification()),
     GetPage(name: allowLocation, page: () => AllowLocation()),
     GetPage(name: homepage, page: () => Homepage()),
     GetPage(name: grups, page: () => Grups()),

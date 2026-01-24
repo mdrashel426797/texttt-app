@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart' show SvgPicture;
+import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:test_app/core/route/route.dart';
 import 'package:test_app/core/widgets/custombutton_two.dart';
 
 class SeftyGrup extends StatelessWidget {
@@ -98,6 +100,7 @@ class SeftyGrup extends StatelessWidget {
             padding: const EdgeInsets.only(top: 700,left: 25,right: 16),
             child: GestureDetector(
               onTap: (){
+                Get.toNamed(AppRoute.sattingpage);
 
               },
               child: Container(

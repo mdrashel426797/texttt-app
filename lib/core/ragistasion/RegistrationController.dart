@@ -2,22 +2,19 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:test_app/core/route/route.dart';
+import 'package:test_app/core/forgetpassword/verification.dart';
 
-class RegistrationController extends GetxController {
+  class RegistrationController extends GetxController {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passWordController = TextEditingController();
   final TextEditingController confirmPassWordController = TextEditingController();
 
   RxBool isLoading = false.obs;
-
   Future<void> registration() async {
 
-    if (nameController.text.isEmpty ||
-        emailController.text.isEmpty ||
-        passWordController.text.isEmpty ||
-        confirmPassWordController.text.isEmpty) {
+    if(nameController.text.isEmpty || emailController.text.isEmpty ||
+        passWordController.text.isEmpty || confirmPassWordController.text.isEmpty) {
       Get.snackbar("Error", "All fields are required");
       return;
     }
@@ -43,12 +40,11 @@ class RegistrationController extends GetxController {
       );
 
       isLoading.value = false;
-
       if (response.statusCode == 201) {
         final data = jsonDecode(response.body);
         print("Sign UP Response: $data");
-         Get.offAllNamed(AppRoute.verification);
-        Get.snackbar("Success", "Registration Successful");
+         Get.to(Verification(email: emailController.text.trim(),));
+         Get.snackbar("Success", "Registration Successful");
       }
       else {
         print("Sign UP Error Body: ${response.body}");

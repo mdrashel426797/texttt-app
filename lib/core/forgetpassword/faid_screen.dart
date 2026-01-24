@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:test_app/core/forgetpassword/verification.dart';
 import 'package:test_app/core/route/route.dart';
 import 'package:test_app/core/widgets/custombutton_two.dart';
 import 'package:test_app/core/widgets/customtextfromfield.dart';
@@ -63,7 +64,7 @@ class FaidScreen extends StatelessWidget {
 
                 GestureDetector(
                   onTap: (){
-                    Get.toNamed(AppRoute.verification);
+                    Get.to(Verification());
                   },
                   child: CustombuttonTwo(
                     width: double.maxFinite,

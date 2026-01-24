@@ -79,11 +79,7 @@ class MyApp extends StatelessWidget {
 
 
 
-//
-//
-//
-//
-//
+
 // class UserChangeController extends GetxController{
 //
 //   RxString username = "Dell".obs;

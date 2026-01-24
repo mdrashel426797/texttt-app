@@ -9,13 +9,16 @@ class VerificationController extends GetxController {
 
   TextEditingController otpController = TextEditingController();
 
-  Future<void> verifyEmail() async {
+
+  Future<void> verifyEmail(String email ) async {
+
     try {
-      final response = await http.post(Uri.parse("http://10.0.20.117:5021/api/v1/auth/otp/resend-otp"),
+      final response = await http.post(Uri.parse("http://10.0.20.117:5021/api/v1/auth/otp/verify-email"),
         headers: {
           "Content-Type": "application/json",
         },
         body: jsonEncode({
+          "email": email,
           "otp": otpController.text.trim(),
         }),
       );
